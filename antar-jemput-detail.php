@@ -52,13 +52,16 @@ require_once __DIR__ . '/includes/navbar.php';
             <!-- Main -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Hero Card -->
-                <div class="bg-white rounded-3xl overflow-hidden shadow-md">
-                    <div class="h-64 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1596422846543-75c6fc197f0c?auto=format&fit=crop&w=1200&q=80"
-                             alt="<?= e($route['name']) ?>" class="w-full h-full object-cover">
+                <div class="bg-white rounded-3xl p-6 shadow-md">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-12 h-12 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl shrink-0">
+                            ✈️
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-600 uppercase tracking-wider">Rute Antar Jemput</span>
+                            <h1 class="font-outfit text-2xl font-extrabold text-slate-900"><?= e($route['name']) ?></h1>
+                        </div>
                     </div>
-                    <div class="p-6">
-                        <h1 class="font-outfit text-2xl font-extrabold text-slate-900 mb-4"><?= e($route['name']) ?></h1>
                         <div class="flex items-center gap-4">
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-brand-600"></span>
