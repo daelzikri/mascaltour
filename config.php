@@ -4,11 +4,16 @@
  * Lombok Travel Agency & Car Rental Catalog Website
  */
 
-// Database Credentials
-define('DB_HOST', 'localhost');
-define('DB_NAME', 'lombok_travel');
-define('DB_USER', 'root');
-define('DB_PASS', '');
+// Load server/local specific database credentials if config.local.php exists (ignored in Git)
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require_once __DIR__ . '/config.local.php';
+}
+
+// Fallback Database Credentials (used if not defined in config.local.php)
+if (!defined('DB_HOST')) define('DB_HOST', 'localhost');
+if (!defined('DB_NAME')) define('DB_NAME', 'lombok_travel');
+if (!defined('DB_USER')) define('DB_USER', 'root');
+if (!defined('DB_PASS')) define('DB_PASS', '');
 
 // Base URL configuration (auto-detects domain & subfolder)
 if (isset($_SERVER['HTTP_HOST'])) {
