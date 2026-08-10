@@ -15,25 +15,32 @@ if (isset($_SESSION['admin_id'])) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // CSRF or rate-limiting checks could go here
-    $email = trim($_POST['email'] ?? '');
+    $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
 
-    if (empty($email) || empty($password)) {
-        $error = 'Silakan masukkan email dan password Anda.';
+    if (empty($username) || empty($password)) {
+        $error = 'Silakan masukkan username dan password Anda.';
     } else {
         try {
-            $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE email = ? LIMIT 1");
-            $stmt->execute([$email]);
-            $user = $stmt->fetch();
+            // Check username (supports username, email, or name column for maximum compatibility)
+            $user = false;
+            try {
+                $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE username = ? OR email = ? OR name = ? LIMIT 1");
+                $stmt->execute([$username, $username, $username]);
+                $user = $stmt->fetch();
+            } catch (PDOException $ex) {
+                // Fallback if 'username' column does not exist yet
+                $stmt = $pdo->prepare("SELECT * FROM admin_users WHERE email = ? OR name = ? LIMIT 1");
+                $stmt->execute([$username, $username]);
+                $user = $stmt->fetch();
+            }
 
             if ($user && password_verify($password, $user['password_hash'])) {
-                // Successfully verified, establish admin session
                 loginAdmin($user);
                 header('Location: ' . BASE_URL . 'admin/dashboard.php');
                 exit;
             } else {
-                $error = 'Email atau password yang Anda masukkan salah.';
+                $error = 'Username atau password yang Anda masukkan salah.';
             }
         } catch (PDOException $e) {
             $error = 'Terjadi kesalahan sistem. Silakan coba lagi.';
@@ -108,17 +115,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form action="" method="POST" class="space-y-5">
                 <div>
-                    <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Alamat Email</label>
+                    <label for="username" class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Username Admin</label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.206" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <input type="email" name="email" id="email" required 
+                        <input type="text" name="username" id="username" required 
                             class="block w-full pl-11 pr-4 py-3 bg-slate-950/50 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary-500/45 focus:border-primary-500 transition duration-200" 
-                            placeholder="nama@email.com" 
-                            value="<?= isset($_POST['email']) ? e($_POST['email']) : '' ?>">
+                            placeholder="Masukkan username" 
+                            value="<?= isset($_POST['username']) ? e($_POST['username']) : '' ?>">
                     </div>
                 </div>
 

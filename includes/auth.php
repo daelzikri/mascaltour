@@ -36,9 +36,10 @@ function checkAdminAuth() {
 function loginAdmin($user) {
     session_regenerate_id(true);
     $_SESSION['admin_id'] = $user['id'];
-    $_SESSION['admin_name'] = $user['name'];
-    $_SESSION['admin_email'] = $user['email'];
-    $_SESSION['admin_role'] = $user['role'];
+    $_SESSION['admin_name'] = !empty($user['username']) ? $user['username'] : (!empty($user['name']) ? $user['name'] : ($user['email'] ?? 'Admin'));
+    $_SESSION['admin_username'] = !empty($user['username']) ? $user['username'] : (!empty($user['name']) ? $user['name'] : ($user['email'] ?? 'admin'));
+    $_SESSION['admin_email'] = $user['email'] ?? '';
+    $_SESSION['admin_role'] = $user['role'] ?? 'admin';
     $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'];
     $_SESSION['last_activity'] = time();
 }

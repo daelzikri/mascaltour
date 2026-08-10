@@ -77,7 +77,7 @@ $current_file = basename($current_script);
         </div>
 
         <!-- Admin Profile Info -->
-        <div class="px-6 py-4 border-b border-slate-900 bg-slate-950/50 flex items-center gap-3">
+        <a href="<?= BASE_URL ?>admin/profil.php" class="px-6 py-4 border-b border-slate-900 bg-slate-950/50 flex items-center gap-3 hover:bg-slate-900 transition">
             <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary-600 to-teal-400 flex items-center justify-center text-white font-bold font-outfit">
                 <?= strtoupper(substr(e($_SESSION['admin_name']), 0, 1)) ?>
             </div>
@@ -85,7 +85,7 @@ $current_file = basename($current_script);
                 <p class="text-sm font-semibold text-white truncate"><?= e($_SESSION['admin_name']) ?></p>
                 <p class="text-xs text-slate-500 capitalize truncate"><?= e($_SESSION['admin_role']) ?></p>
             </div>
-        </div>
+        </a>
 
         <!-- Sidebar Navigation Menu -->
         <nav class="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
@@ -161,6 +161,15 @@ $current_file = basename($current_script);
                 <span>FAQ</span>
             </a>
 
+            <!-- Akun & Security Link -->
+            <a href="<?= BASE_URL ?>admin/profil.php" 
+                class="flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 <?= ($current_file === 'profil.php') ? 'bg-primary-600 text-white font-semibold' : 'hover:bg-slate-900 hover:text-white' ?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span>Akun &amp; Password</span>
+            </a>
+
             <!-- Pengaturan Link -->
             <a href="<?= BASE_URL ?>admin/pengaturan.php" 
                 class="flex items-center gap-3 px-4 py-3 rounded-xl transition duration-200 <?= ($current_file === 'pengaturan.php') ? 'bg-primary-600 text-white font-semibold' : 'hover:bg-slate-900 hover:text-white' ?>">
@@ -168,7 +177,7 @@ $current_file = basename($current_script);
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <span>Pengaturan</span>
+                <span>Pengaturan Situs</span>
             </a>
 
             <div class="pt-4 border-t border-slate-900"></div>
