@@ -31,12 +31,12 @@ function generateWaLink($waNumber, $message) {
 
 /**
  * Upload an image with security validation, size limit (max 2MB),
- * and automatic conversion to WebP format.
+ * and automatic conversion to WebP format with transparency preservation.
  * 
- * @param array $fileInput Array element from $_FILES
- * @param string $targetFolder Folder name inside uploads/ (e.g., 'packages', 'vehicles', 'settings', 'categories')
+ * @param array $fileInput Single element from $_FILES
+ * @param string $targetFolder Subfolder name inside uploads/ (e.g., 'packages', 'vehicles', 'settings', 'categories')
  * @param int $maxSizeBytes Maximum allowed file size in bytes (default 2MB = 2,097,152 bytes)
- * @return string|null Path to the uploaded WebP file relative to project root, or null if no file uploaded
+ * @return string|null Path to the uploaded file relative to project root, or null if no file uploaded
  * @throws Exception if file exceeds 2MB or has an invalid format
  */
 function uploadImage($fileInput, $targetFolder, $maxSizeBytes = 2097152) {
@@ -63,7 +63,13 @@ function uploadImage($fileInput, $targetFolder, $maxSizeBytes = 2097152) {
         throw new Exception('Format gambar tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF.');
     }
     
-    // 3. Create GD resource according to file type
+    // Prepare target directory
+    $targetDir = __DIR__ . '/../uploads/' . trim($targetFolder, '/');
+    if (!is_dir($targetDir)) {
+        mkdir($targetDir, 0755, true);
+    }
+
+    // 3. Attempt GD WebP conversion with Truecolor Canvas
     $srcImg = null;
     switch ($mime) {
         case 'image/jpeg':
@@ -80,33 +86,45 @@ function uploadImage($fileInput, $targetFolder, $maxSizeBytes = 2097152) {
             break;
     }
     
-    if (!$srcImg) {
-        throw new Exception('Gagal memproses file gambar. File mungkin rusak.');
+    if ($srcImg) {
+        $width = imagesx($srcImg);
+        $height = imagesy($srcImg);
+
+        // Create a truecolor canvas to safely process palette/transparent images
+        $truecolor = imagecreatetruecolor($width, $height);
+        imagealphablending($truecolor, false);
+        imagesavealpha($truecolor, true);
+        
+        $transparent = imagecolorallocatealpha($truecolor, 0, 0, 0, 127);
+        imagefilledrectangle($truecolor, 0, 0, $width, $height, $transparent);
+        imagecopy($truecolor, $srcImg, 0, 0, 0, 0, $width, $height);
+
+        $newName = uniqid('img_') . '_' . time() . '.webp';
+        $destination = $targetDir . '/' . $newName;
+
+        $saved = @imagewebp($truecolor, $destination, 85);
+        imagedestroy($truecolor);
+        imagedestroy($srcImg);
+
+        if ($saved && file_exists($destination) && filesize($destination) > 0) {
+            return 'uploads/' . trim($targetFolder, '/') . '/' . $newName;
+        }
+    }
+
+    // 4. Fallback: Save original file directly if WebP conversion fails
+    $ext = 'jpg';
+    if ($mime === 'image/png') $ext = 'png';
+    elseif ($mime === 'image/webp') $ext = 'webp';
+    elseif ($mime === 'image/gif') $ext = 'gif';
+
+    $fallbackName = uniqid('img_') . '_' . time() . '.' . $ext;
+    $fallbackDestination = $targetDir . '/' . $fallbackName;
+
+    if (move_uploaded_file($tmpPath, $fallbackDestination)) {
+        return 'uploads/' . trim($targetFolder, '/') . '/' . $fallbackName;
     }
     
-    // Maintain transparency for PNG / WebP
-    imagealphablending($srcImg, true);
-    imagesavealpha($srcImg, true);
-    
-    // Prepare destination folder
-    $targetDir = __DIR__ . '/../uploads/' . trim($targetFolder, '/');
-    if (!is_dir($targetDir)) {
-        mkdir($targetDir, 0755, true);
-    }
-    
-    // Generate unique name ending in .webp
-    $newName = uniqid('img_') . '_' . time() . '.webp';
-    $destination = $targetDir . '/' . $newName;
-    
-    // Save as WebP format with 82% quality
-    $saved = imagewebp($srcImg, $destination, 82);
-    imagedestroy($srcImg);
-    
-    if ($saved && file_exists($destination)) {
-        return 'uploads/' . trim($targetFolder, '/') . '/' . $newName;
-    }
-    
-    throw new Exception('Gagal menyimpan file dalam format WebP.');
+    throw new Exception('Gagal menyimpan file gambar.');
 }
 
 /**
