@@ -10,13 +10,23 @@ define('DB_NAME', 'lombok_travel');
 define('DB_USER', 'root');
 define('DB_PASS', '');
 
-// Base URL configuration (handles subfolder in localhost)
+// Base URL configuration (auto-detects domain & subfolder)
 if (isset($_SERVER['HTTP_HOST'])) {
-    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443)) ? "https://" : "http://";
     $domain = $_SERVER['HTTP_HOST'];
-    define('BASE_URL', $protocol . $domain . '/lombok-travel/');
+
+    $docRoot = isset($_SERVER['DOCUMENT_ROOT']) ? rtrim(str_replace('\\', '/', realpath($_SERVER['DOCUMENT_ROOT'])), '/') : '';
+    $dirPath = rtrim(str_replace('\\', '/', realpath(__DIR__)), '/');
+    
+    $basePath = '/';
+    if (!empty($docRoot) && !empty($dirPath) && strpos($dirPath, $docRoot) === 0) {
+        $subfolder = trim(substr($dirPath, strlen($docRoot)), '/');
+        $basePath = $subfolder ? '/' . $subfolder . '/' : '/';
+    }
+
+    define('BASE_URL', $protocol . $domain . $basePath);
 } else {
-    define('BASE_URL', 'http://localhost/lombok-travel/');
+    define('BASE_URL', '/');
 }
 
 // Upload Path configuration
