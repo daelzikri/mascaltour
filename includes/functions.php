@@ -30,55 +30,83 @@ function generateWaLink($waNumber, $message) {
 }
 
 /**
- * Upload an image with security validation (MIME-type check)
+ * Upload an image with security validation, size limit (max 2MB),
+ * and automatic conversion to WebP format.
  * 
  * @param array $fileInput Array element from $_FILES
- * @param string $targetFolder Folder name inside uploads/ (e.g., 'packages')
- * @return string|null Path to the uploaded file relative to project root, or null if no upload
- * @throws Exception if file type is invalid
+ * @param string $targetFolder Folder name inside uploads/ (e.g., 'packages', 'vehicles', 'settings', 'categories')
+ * @param int $maxSizeBytes Maximum allowed file size in bytes (default 2MB = 2,097,152 bytes)
+ * @return string|null Path to the uploaded WebP file relative to project root, or null if no file uploaded
+ * @throws Exception if file exceeds 2MB or has an invalid format
  */
-function uploadImage($fileInput, $targetFolder) {
-    $allowedMimes = ['image/jpeg', 'image/png', 'image/webp'];
-    
-    if (!isset($fileInput) || $fileInput['error'] !== UPLOAD_ERR_OK) {
+function uploadImage($fileInput, $targetFolder, $maxSizeBytes = 2097152) {
+    if (!isset($fileInput) || !is_array($fileInput) || ($fileInput['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
         return null;
     }
     
     $tmpPath = $fileInput['tmp_name'];
+    $fileSize = $fileInput['size'] ?? 0;
     
-    // Validate file existence and mime type
     if (!is_uploaded_file($tmpPath)) {
         return null;
     }
     
+    // 1. Validate file size (Max 2MB)
+    if ($fileSize > $maxSizeBytes) {
+        throw new Exception('Ukuran file foto terlalu besar. Maksimal 2 MB.');
+    }
+    
+    // 2. Validate MIME type
+    $allowedMimes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
     $mime = mime_content_type($tmpPath);
     if (!in_array($mime, $allowedMimes)) {
-        throw new Exception('Format gambar tidak didukung. Gunakan JPG, PNG, atau WEBP.');
+        throw new Exception('Format gambar tidak didukung. Gunakan JPG, PNG, WEBP, atau GIF.');
     }
     
-    // Determine extension
-    $ext = 'jpg';
-    if ($mime === 'image/png') {
-        $ext = 'png';
-    } elseif ($mime === 'image/webp') {
-        $ext = 'webp';
+    // 3. Create GD resource according to file type
+    $srcImg = null;
+    switch ($mime) {
+        case 'image/jpeg':
+            $srcImg = @imagecreatefromjpeg($tmpPath);
+            break;
+        case 'image/png':
+            $srcImg = @imagecreatefrompng($tmpPath);
+            break;
+        case 'image/webp':
+            $srcImg = @imagecreatefromwebp($tmpPath);
+            break;
+        case 'image/gif':
+            $srcImg = @imagecreatefromgif($tmpPath);
+            break;
     }
     
-    // Generate unique name
-    $newName = uniqid('img_') . '.' . $ext;
+    if (!$srcImg) {
+        throw new Exception('Gagal memproses file gambar. File mungkin rusak.');
+    }
     
-    // Create destination folder if not exists
-    $targetDir = __DIR__ . '/../uploads/' . $targetFolder;
+    // Maintain transparency for PNG / WebP
+    imagealphablending($srcImg, true);
+    imagesavealpha($srcImg, true);
+    
+    // Prepare destination folder
+    $targetDir = __DIR__ . '/../uploads/' . trim($targetFolder, '/');
     if (!is_dir($targetDir)) {
         mkdir($targetDir, 0755, true);
     }
     
+    // Generate unique name ending in .webp
+    $newName = uniqid('img_') . '_' . time() . '.webp';
     $destination = $targetDir . '/' . $newName;
-    if (move_uploaded_file($tmpPath, $destination)) {
-        return 'uploads/' . $targetFolder . '/' . $newName;
+    
+    // Save as WebP format with 82% quality
+    $saved = imagewebp($srcImg, $destination, 82);
+    imagedestroy($srcImg);
+    
+    if ($saved && file_exists($destination)) {
+        return 'uploads/' . trim($targetFolder, '/') . '/' . $newName;
     }
     
-    return null;
+    throw new Exception('Gagal menyimpan file dalam format WebP.');
 }
 
 /**

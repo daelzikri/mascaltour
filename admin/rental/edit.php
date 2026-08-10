@@ -68,22 +68,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // New photos
             if (!empty($_FILES['photos']['name'][0])) {
-                $allowedMimes = ['image/jpeg', 'image/png', 'image/webp'];
                 $stmtPhoto = $pdo->prepare("INSERT INTO vehicle_photos (vehicle_id, image_url, sort_order) VALUES (?, ?, ?)");
-                $destDir = __DIR__ . '/../../uploads/vehicles';
-                if (!is_dir($destDir)) mkdir($destDir, 0755, true);
                 $stmt_max = $pdo->prepare("SELECT MAX(sort_order) FROM vehicle_photos WHERE vehicle_id = ?");
                 $stmt_max->execute([$id]);
                 $max_order = (int)$stmt_max->fetchColumn();
 
-                foreach ($_FILES['photos']['tmp_name'] as $i => $tmpPath) {
-                    if ($_FILES['photos']['error'][$i] !== UPLOAD_ERR_OK) continue;
-                    $mime = mime_content_type($tmpPath);
-                    if (!in_array($mime, $allowedMimes)) continue;
-                    $ext = $mime === 'image/png' ? 'png' : ($mime === 'image/webp' ? 'webp' : 'jpg');
-                    $newName = uniqid('veh_') . '_' . $i . '.' . $ext;
-                    if (move_uploaded_file($tmpPath, $destDir . '/' . $newName)) {
-                        $stmtPhoto->execute([$id, 'uploads/vehicles/' . $newName, ++$max_order]);
+                foreach ($_FILES['photos']['name'] as $i => $name) {
+                    if (empty($name) || ($_FILES['photos']['error'][$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) continue;
+
+                    $fileItem = [
+                        'name' => $_FILES['photos']['name'][$i],
+                        'type' => $_FILES['photos']['type'][$i] ?? '',
+                        'tmp_name' => $_FILES['photos']['tmp_name'][$i],
+                        'error' => $_FILES['photos']['error'][$i],
+                        'size' => $_FILES['photos']['size'][$i] ?? 0,
+                    ];
+
+                    $imgUrl = uploadImage($fileItem, 'vehicles');
+                    if ($imgUrl) {
+                        $stmtPhoto->execute([$id, $imgUrl, ++$max_order]);
                     }
                 }
             }

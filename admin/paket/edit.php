@@ -174,34 +174,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Multiple image upload processing
             if (!empty($_FILES['photos']['name'][0])) {
-                $allowedMimes = ['image/jpeg', 'image/png', 'image/webp'];
                 $stmtPhoto = $pdo->prepare("INSERT INTO package_photos (package_id, image_url, sort_order) VALUES (?, ?, ?)");
                 
-                $destDir = __DIR__ . '/../../uploads/packages';
-                if (!is_dir($destDir)) {
-                    mkdir($destDir, 0755, true);
-                }
-
                 // Determine next photo index for ordering
                 $stmt_max = $pdo->prepare("SELECT MAX(sort_order) FROM package_photos WHERE package_id = ?");
                 $stmt_max->execute([$id]);
                 $max_order = (int)$stmt_max->fetchColumn();
 
-                foreach ($_FILES['photos']['tmp_name'] as $i => $tmpPath) {
-                    if ($_FILES['photos']['error'][$i] !== UPLOAD_ERR_OK) continue;
+                foreach ($_FILES['photos']['name'] as $i => $name) {
+                    if (empty($name) || ($_FILES['photos']['error'][$i] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) continue;
 
-                    $mime = mime_content_type($tmpPath);
-                    if (!in_array($mime, $allowedMimes)) {
-                        throw new Exception("File foto '{$_FILES['photos']['name'][$i]}' bukan tipe JPG/PNG/WEBP.");
-                    }
+                    $fileItem = [
+                        'name' => $_FILES['photos']['name'][$i],
+                        'type' => $_FILES['photos']['type'][$i] ?? '',
+                        'tmp_name' => $_FILES['photos']['tmp_name'][$i],
+                        'error' => $_FILES['photos']['error'][$i],
+                        'size' => $_FILES['photos']['size'][$i] ?? 0,
+                    ];
 
-                    $ext = 'jpg';
-                    if ($mime === 'image/png') $ext = 'png';
-                    if ($mime === 'image/webp') $ext = 'webp';
-
-                    $newName = uniqid('pkg_') . '_' . $i . '.' . $ext;
-                    if (move_uploaded_file($tmpPath, $destDir . '/' . $newName)) {
-                        $stmtPhoto->execute([$id, 'uploads/packages/' . $newName, ++$max_order]);
+                    $imgUrl = uploadImage($fileItem, 'packages');
+                    if ($imgUrl) {
+                        $stmtPhoto->execute([$id, $imgUrl, ++$max_order]);
                     }
                 }
             }
