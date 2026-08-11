@@ -63,8 +63,10 @@ $wa_link = generateWaLink($wa_number, $wa_msg);
 $main_image = !empty($photos) ? BASE_URL . $photos[0]['image_url'] : 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1200&q=80';
 $min_price = !empty($prices) ? min(array_column($prices, 'price')) : null;
 
-$page_title = e($pkg['name']) . ' - Paket Wisata Lombok | LombokTravel';
-$page_description = !empty($pkg['short_description']) ? e($pkg['short_description']) : 'Temukan paket wisata terbaik di Lombok bersama LombokTravel.';
+$page_title = e($pkg['name']) . ' - Paket Wisata Lombok | MascalTour';
+$page_description = !empty($pkg['short_description']) ? e($pkg['short_description']) : 'Paket wisata ' . e($pkg['name']) . ' di Lombok. Fasilitas lengkap, armada nyaman, guide profesional.';
+$page_keywords = e($pkg['name']) . ', paket wisata lombok, tour ' . e($pkg['category_name']) . ', liburan lombok, mascaltour';
+$page_og_image = $main_image;
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';

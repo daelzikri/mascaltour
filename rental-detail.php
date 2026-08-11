@@ -29,8 +29,10 @@ $wa_link = generateWaLink($wa_number, $wa_msg);
 
 $main_image = !empty($photos) ? BASE_URL . $photos[0]['image_url'] : 'https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80';
 
-$page_title = e($vehicle['name']) . ' - Rental Mobil Lombok | LombokTravel';
-$page_description = "Sewa mobil {$vehicle['name']} di Lombok. Lepas kunci atau dengan supir. Harga murah, unit terawat & bersih.";
+$page_title = 'Sewa ' . e($vehicle['name']) . ' Lombok - Rental Mobil | MascalTour';
+$page_description = "Sewa & rental mobil {$vehicle['name']} di Lombok. Tersedia lepas kunci 24 jam atau plus supir & BBM. Unit terawat, bersih & wangi.";
+$page_keywords = "sewa {$vehicle['name']} lombok, rental {$vehicle['name']} lombok, sewa mobil lombok, mascaltour";
+$page_og_image = $main_image;
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';

@@ -2,8 +2,9 @@
 /**
  * Public Page: Paket Wisata - Tour Package Catalog
  */
-$page_title = 'Paket Wisata Lombok - Jelajahi Keindahan Lombok | LombokTravel';
-$page_description = 'Temukan berbagai paket wisata Lombok terbaik: wisata pantai, gili, gunung rinjani, dan budaya. Pilihan lengkap dengan harga terjangkau.';
+$page_title = 'Katalog Paket Wisata Lombok Murah & Terlengkap | MascalTour';
+$page_description = 'Pilihan paket tour & wisata Lombok 1 Hari, 2D1N, 3D2N, 4D3N. Wisata Gili Trawangan, Pantai Kuta Mandalika, Desa Sade, dan Bukit Merese dengan harga terjangkau.';
+$page_keywords = 'paket wisata lombok, paket tour lombok, tour gili trawangan, pantai kuta lombok, wisata lombok mandalika, paket liburan lombok murah, mascaltour';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';

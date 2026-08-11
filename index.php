@@ -2,7 +2,9 @@
 /**
  * Public Landing Page (Home)
  */
-$page_title = "Lombok Travel - Paket Wisata, Antar Jemput & Rental Mobil Lombok";
+$page_title = "MascalTour - Paket Wisata Lombok, Sewa Mobil & Antar Jemput Bandara";
+$page_description = "Layanan agen travel resmi Lombok. Menyediakan paket wisata Lombok murah, rental mobil lepas kunci & supir, serta shuttle antar jemput Bandara Lombok (LOP) & pelabuhan.";
+$page_keywords = "paket wisata lombok, tour lombok, sewa mobil lombok, rental mobil lombok, antar jemput bandara lombok, transfer airport lombok, lombok travel, mascaltour, tour gili trawangan, pantai kuta lombok, wisata rinjani, sewa avanza lombok, sewa innova lombok";
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';
 

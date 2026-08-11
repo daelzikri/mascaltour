@@ -27,8 +27,9 @@ $wa_number = getSetting('whatsapp_number', '6281234567890');
 $wa_msg = "Halo Lombok Travel! Saya ingin memesan antar jemput *{$route['name']}* ({$route['origin']} → {$route['destination']}). Mohon informasi lebih lanjut.";
 $wa_link = generateWaLink($wa_number, $wa_msg);
 
-$page_title = e($route['name']) . ' - Antar Jemput Lombok | LombokTravel';
-$page_description = "Layanan antar jemput {$route['origin']} ke {$route['destination']} di Lombok. Harga transparan, armada lengkap.";
+$page_title = 'Transfer ' . e($route['name']) . ' - Antar Jemput Lombok | MascalTour';
+$page_description = "Layanan antar jemput resmi & transfer {$route['origin']} ke {$route['destination']} di Lombok. Harga transparan, armada lengkap ber-AC, sopir profesional.";
+$page_keywords = "antar jemput {$route['origin']} ke {$route['destination']}, transfer {$route['origin']} {$route['destination']}, shuttle lombok, mascaltour";
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';

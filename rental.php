@@ -2,8 +2,9 @@
 /**
  * Public Page: Rental Mobil Lombok - Car Rental Catalog
  */
-$page_title = 'Sewa Mobil Lombok - Rental Mobil Murah & Premium | LombokTravel';
-$page_description = 'Rental mobil Lombok murah & terpercaya. Pilihan armada lengkap: Avanza, Innova, Fortuner, Hiace, Brio. Bisa lepas kunci atau dengan supir + BBM.';
+$page_title = 'Sewa & Rental Mobil Lombok Murah (Lepas Kunci / Supir) | MascalTour';
+$page_description = 'Rental mobil murah Lombok terpercaya. Pilihan armada lengkap: Avanza, Innova Reborn, Fortuner, Hiace, Brio. Lepas kunci 24 jam atau plus supir & BBM.';
+$page_keywords = 'sewa mobil lombok, rental mobil lombok, rental mobil lepas kunci lombok, sewa avanza lombok, sewa innova lombok, sewa hiace lombok, rental mobil murah lombok, mascaltour';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';

@@ -2,8 +2,9 @@
 /**
  * Public Page: Antar Jemput Bandara - Transfer Routes
  */
-$page_title = 'Antar Jemput Bandara Lombok - Transfer Airport & Pelabuhan | LombokTravel';
-$page_description = 'Layanan antar jemput bandara Lombok, pelabuhan Lembar, Bangsal ke hotel, villa, dan destinasi wisata Lombok. Harga tetap, armada nyaman, tepat waktu.';
+$page_title = 'Antar Jemput Bandara Lombok (LOP) & Pelabuhan Bangsal / Lembar | MascalTour';
+$page_description = 'Layanan antar jemput resmi Bandara Internasional Lombok (LOP), Pelabuhan Lembar & Pelabuhan Bangsal ke hotel, villa, dan destinasi wisata Lombok. Harga fix tanpa nego.';
+$page_keywords = 'antar jemput bandara lombok, transfer airport lombok, taksi bandara lombok, pelabuhan bangsal gili, pelabuhan lembar lombok, shuttle bandara lombok, mascaltour';
 
 require_once __DIR__ . '/includes/header.php';
 require_once __DIR__ . '/includes/navbar.php';
