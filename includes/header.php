@@ -39,13 +39,14 @@ $og_image = isset($page_og_image) ? $page_og_image : BASE_URL . 'favicon-96x96.p
     <meta name="author" content="<?= e($site_name) ?>">
     <link rel="canonical" href="<?= e($current_url) ?>">
 
-    <!-- Favicon Icons -->
+    <!-- Favicon Icons & App Manifest -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>favicon.svg" />
     <link rel="shortcut icon" href="<?= BASE_URL ?>favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MascalTour" />
     <link rel="manifest" href="<?= BASE_URL ?>site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
     
     <!-- Open Graph / Facebook / WhatsApp -->
     <meta property="og:type" content="website">

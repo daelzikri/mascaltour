@@ -54,6 +54,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - Lombok Travel</title>
+
+    <!-- Favicon Icons & App Manifest -->
+    <link rel="icon" type="image/png" href="<?= BASE_URL ?>favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="<?= BASE_URL ?>favicon.svg" />
+    <link rel="shortcut icon" href="<?= BASE_URL ?>favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= BASE_URL ?>apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="MascalTour" />
+    <link rel="manifest" href="<?= BASE_URL ?>site.webmanifest" />
+    <meta name="theme-color" content="#ffffff" />
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
