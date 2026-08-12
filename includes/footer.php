@@ -12,7 +12,8 @@ $address = getSetting('address', getSetting('office_address', 'Jl. Raya Senggigi
 $instagram = getSetting('social_instagram');
 $facebook = getSetting('social_facebook');
 $tiktok = getSetting('social_tiktok');
-$maps_url = getSetting('address_maps_url', getSetting('google_maps_embed_url', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126248.86877995166!2d116.00287841528343!3d-8.472392476595568!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcde68c928ee5cf%3A0xe54fb7a3b34b150c!2sSenggigi%2520Beach!5e0!3m2!1sen!2sid!4v1691111111111!5m2!1sen!2sid'));
+$raw_maps_url = getSetting('address_maps_url', getSetting('google_maps_embed_url'));
+$maps_url = getGoogleMapsEmbedUrl($raw_maps_url, $address);
 ?>
 <footer class="bg-slate-950 text-slate-400 pt-16 pb-8 border-t border-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

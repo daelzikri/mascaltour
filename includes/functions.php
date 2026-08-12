@@ -187,3 +187,76 @@ function getSetting($key, $default = '') {
 function e($string) {
     return htmlspecialchars($string ?? '', ENT_QUOTES, 'UTF-8');
 }
+
+/**
+ * Convert any Google Maps link, iframe tag, short link, coordinates, or address string
+ * into a valid Google Maps embed URL for <iframe> elements.
+ */
+function getGoogleMapsEmbedUrl($input, $addressFallback = '') {
+    $input = trim($input ?? '');
+
+    if (empty($input)) {
+        return !empty($addressFallback) ? 'https://maps.google.com/maps?q=' . urlencode($addressFallback) . '&output=embed' : '';
+    }
+
+    // 1. Extract src from iframe HTML string if user pasted full <iframe> tag
+    if (preg_match('/src=["\']([^"\']+)["\']/', $input, $matches)) {
+        $input = $matches[1];
+    }
+
+    // 2. If already a valid embed URL, return as-is
+    if (strpos($input, '/maps/embed') !== false || strpos($input, 'output=embed') !== false) {
+        return $input;
+    }
+
+    // 3. Resolve short URLs (maps.app.goo.gl or goo.gl/maps)
+    if (preg_match('#https?://(maps\.app\.goo\.gl|goo\.gl/maps)/[^\s]+#i', $input, $m)) {
+        try {
+            $headers = @get_headers($m[0], true);
+            $location = '';
+            if (!empty($headers['Location'])) {
+                $location = is_array($headers['Location']) ? end($headers['Location']) : $headers['Location'];
+            } elseif (!empty($headers['location'])) {
+                $location = is_array($headers['location']) ? end($headers['location']) : $headers['location'];
+            }
+            if (!empty($location)) {
+                $input = urldecode($location);
+            }
+        } catch (Exception $ex) {
+            // ignore failure, fallback to query parsing
+        }
+    }
+
+    // 4. Match coordinates in URL (e.g. /search/-8.591472,+116.381893 or @-8.591472,116.381893)
+    if (preg_match('/(-?\d+\.\d+)\s*,\s*\+?(-?\d+\.\d+)/', $input, $coords)) {
+        return 'https://maps.google.com/maps?q=' . $coords[1] . ',' . $coords[2] . '&z=15&output=embed';
+    }
+
+    // 5. Match place name from google.com/maps/place/LOCATION_NAME
+    if (preg_match('#/maps/place/([^/@?]+)#i', $input, $placeMatches)) {
+        $place = urldecode($placeMatches[1]);
+        $place = str_replace('+', ' ', $place);
+        return 'https://maps.google.com/maps?q=' . urlencode($place) . '&z=15&output=embed';
+    }
+
+    // 6. Match query param q=...
+    $parsed = parse_url($input);
+    if (!empty($parsed['query'])) {
+        parse_str($parsed['query'], $queryParams);
+        if (!empty($queryParams['q'])) {
+            return 'https://maps.google.com/maps?q=' . urlencode($queryParams['q']) . '&z=15&output=embed';
+        }
+    }
+
+    // 7. If input is raw address or query string (no http/https)
+    if (strpos($input, 'http://') !== 0 && strpos($input, 'https://') !== 0) {
+        return 'https://maps.google.com/maps?q=' . urlencode($input) . '&z=15&output=embed';
+    }
+
+    // 8. Fallback to address fallback or input
+    if (!empty($addressFallback)) {
+        return 'https://maps.google.com/maps?q=' . urlencode($addressFallback) . '&output=embed';
+    }
+
+    return 'https://maps.google.com/maps?q=' . urlencode($input) . '&z=15&output=embed';
+}

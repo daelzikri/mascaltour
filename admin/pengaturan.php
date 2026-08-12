@@ -210,9 +210,12 @@ function get_setting(array $s, string $key, string $default = ''): string {
                     class="block w-full px-4 py-3 bg-slate-900 border border-slate-850 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500/40 text-sm"><?= e(get_setting($settings, 'address')) ?></textarea>
             </div>
             <div>
-                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">URL Google Maps Embed</label>
-                <textarea name="address_maps_url" rows="3" placeholder="https://maps.google.com/maps?q=..."
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">URL Google Maps Embed / Link Lokasi</label>
+                <textarea name="address_maps_url" rows="3" placeholder="https://maps.app.goo.gl/..."
                     class="block w-full px-4 py-3 bg-slate-900 border border-slate-850 rounded-xl text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-primary-500/40 text-sm"><?= e(get_setting($settings, 'address_maps_url')) ?></textarea>
+                <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
+                    💡 <strong>Dukungan Otomatis:</strong> Anda dapat memasukkan link pendek (<code class="text-primary-400 font-mono">https://maps.app.goo.gl/...</code>), kode embed (<code class="text-primary-400 font-mono">&lt;iframe src="..."&gt;</code>), atau alamat lokasi. Sistem secara otomatis memformatnya agar peta langsung tampil tanpa error!
+                </p>
             </div>
         </div>
     </div>
