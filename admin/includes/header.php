@@ -71,7 +71,7 @@ $current_file = basename($current_script);
         <!-- Sidebar Brand Logo -->
         <div class="p-6 border-b border-slate-900 flex items-center justify-between">
             <span class="font-outfit text-2xl font-extrabold text-white tracking-wide">
-                Lombok<span class="text-primary-500">Travel</span>
+                Mascal<span class="text-primary-500">Tour</span>
             </span>
             <span class="text-[10px] bg-primary-500/10 text-primary-500 font-bold border border-primary-500/20 px-2 py-0.5 rounded-full">v1.0</span>
         </div>
