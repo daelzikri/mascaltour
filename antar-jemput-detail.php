@@ -24,7 +24,7 @@ try {
 }
 
 $wa_number = getSetting('whatsapp_number', '6281234567890');
-$wa_msg = "Halo Lombok Travel! Saya ingin memesan antar jemput *{$route['name']}* ({$route['origin']} → {$route['destination']}). Mohon informasi lebih lanjut.";
+$wa_msg = "Halo Mascal Tour! Saya ingin memesan antar jemput *{$route['name']}* ({$route['origin']} → {$route['destination']}). Mohon informasi lebih lanjut.";
 $wa_link = generateWaLink($wa_number, $wa_msg);
 
 $page_title = 'Transfer ' . e($route['name']) . ' - Antar Jemput Lombok | MascalTour';
@@ -91,7 +91,7 @@ require_once __DIR__ . '/includes/navbar.php';
                         <h2 class="font-outfit text-xl font-bold text-slate-900 mb-5">Pilihan Armada Kendaraan</h2>
                         <div class="space-y-3">
                             <?php foreach ($vehicles as $vi => $v):
-                                $va_msg = "Halo Lombok Travel! Saya ingin memesan *{$v['vehicle_name']}* untuk rute *{$route['name']}* seharga *" . formatRupiah($v['price']) . "*. Mohon konfirmasi ketersediaan.";
+                                $va_msg = "Halo Mascal Tour! Saya ingin memesan *{$v['vehicle_name']}* untuk rute *{$route['name']}* seharga *" . formatRupiah($v['price']) . "*. Mohon konfirmasi ketersediaan.";
                                 $va_link = generateWaLink($wa_number, $va_msg);
                             ?>
                                 <div class="flex items-center justify-between bg-slate-50 hover:bg-brand-50 border border-slate-200 hover:border-brand-200 rounded-2xl p-4 transition-all duration-200">

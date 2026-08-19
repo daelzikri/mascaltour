@@ -17,7 +17,7 @@ $current_file = basename($current_script);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Lombok Travel</title>
+    <title>Admin Dashboard - Mascal Tour</title>
 
     <!-- Favicon Icons & App Manifest -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>favicon-96x96.png" sizes="96x96" />
@@ -66,7 +66,7 @@ $current_file = basename($current_script);
     <!-- Mobile Navigation Bar -->
     <div class="md:hidden flex justify-between items-center bg-slate-950 p-4 border-b border-slate-800">
         <span class="font-outfit text-xl font-extrabold text-white tracking-wide">
-            Lombok<span class="text-primary-500">Travel</span>
+            Mascal<span class="text-primary-500">Tour</span>
         </span>
         <button id="mobile-menu-toggle" class="text-slate-400 hover:text-white focus:outline-none">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -57,7 +57,7 @@ try {
 }
 
 $wa_number = getSetting('whatsapp_number', '6281234567890');
-$wa_msg = "Halo Lombok Travel! Saya ingin memesan paket wisata *{$pkg['name']}*. Mohon informasi lebih lanjut mengenai ketersediaan dan harga.";
+$wa_msg = "Halo Mascal Tour! Saya ingin memesan paket wisata *{$pkg['name']}*. Mohon informasi lebih lanjut mengenai ketersediaan dan harga.";
 $wa_link = generateWaLink($wa_number, $wa_msg);
 
 $main_image = !empty($photos) ? BASE_URL . $photos[0]['image_url'] : 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?auto=format&fit=crop&w=1200&q=80';

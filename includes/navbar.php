@@ -3,7 +3,7 @@
  * Public Website Navbar Component
  */
 $current_page = basename($_SERVER['SCRIPT_NAME']);
-$site_name = getSetting('site_name', 'LombokTravel');
+$site_name = getSetting('site_name', 'Mascal Tour');
 $site_logo = getSetting('site_logo');
 $wa_number = getSetting('contact_whatsapp', getSetting('whatsapp_number', '6281234567890'));
 $wa_url = generateWaLink($wa_number, "Halo {$site_name}, saya ingin berkonsultasi mengenai paket wisata / sewa mobil.");

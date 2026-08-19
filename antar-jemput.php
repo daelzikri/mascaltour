@@ -115,7 +115,7 @@ $wa_number = getSetting('whatsapp_number', '6281234567890');
                     $vehicle_names = !empty($route['vehicle_names']) ? explode('|', $route['vehicle_names']) : [];
                     $vehicle_prices = !empty($route['vehicle_prices']) ? explode('|', $route['vehicle_prices']) : [];
 
-                    $wa_msg = "Halo Lombok Travel! Saya ingin memesan antar jemput rute *{$route['name']}* (dari {$route['origin']} ke {$route['destination']}). Mohon konfirmasi ketersediaan.";
+                    $wa_msg = "Halo Mascal Tour! Saya ingin memesan antar jemput rute *{$route['name']}* (dari {$route['origin']} ke {$route['destination']}). Mohon konfirmasi ketersediaan.";
                     $wa_link = generateWaLink($wa_number, $wa_msg);
                 ?>
                     <div class="bg-white rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 hover:-translate-y-0.5 p-6 flex flex-col md:flex-row gap-6">
@@ -239,7 +239,7 @@ $wa_number = getSetting('whatsapp_number', '6281234567890');
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
         <h2 class="font-outfit text-3xl font-extrabold mb-3">Butuh Rute Lain atau Custom?</h2>
         <p class="text-brand-100 mb-7">Kami melayani rute ke seluruh penjuru Lombok. Hubungi kami untuk penawaran terbaik.</p>
-        <a href="<?= generateWaLink($wa_number, 'Halo Lombok Travel! Saya membutuhkan layanan antar jemput. Mohon informasi rute dan harga.') ?>" target="_blank"
+        <a href="<?= generateWaLink($wa_number, 'Halo Mascal Tour! Saya membutuhkan layanan antar jemput. Mohon informasi rute dan harga.') ?>" target="_blank"
             class="inline-flex items-center gap-3 px-8 py-4 bg-white text-brand-800 font-extrabold rounded-2xl hover:bg-accent-50 transition shadow-xl text-sm">
             💬 Tanyakan Rute Custom via WhatsApp
         </a>

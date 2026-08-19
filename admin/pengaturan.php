@@ -119,7 +119,7 @@ function get_setting(array $s, string $key, string $default = ''): string {
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Nama Website / Brand</label>
-                <input type="text" name="site_name" value="<?= e(get_setting($settings, 'site_name', 'LombokTravel')) ?>"
+                <input type="text" name="site_name" value="<?= e(get_setting($settings, 'site_name', 'Mascal Tour')) ?>"
                     class="block w-full px-4 py-3 bg-slate-900 border border-slate-850 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-primary-500/40 text-sm">
             </div>
             <div>

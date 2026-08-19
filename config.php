@@ -1,7 +1,7 @@
 <?php
 /**
  * Configuration File
- * Lombok Travel Agency & Car Rental Catalog Website
+ * Mascal Tour & Car Rental Catalog Website
  */
 
 // Load server/local specific database credentials if config.local.php exists (ignored in Git)

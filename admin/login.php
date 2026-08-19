@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Admin - Lombok Travel</title>
+    <title>Login Admin - Mascal Tour</title>
 
     <!-- Favicon Icons & App Manifest -->
     <link rel="icon" type="image/png" href="<?= BASE_URL ?>favicon-96x96.png" sizes="96x96" />
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!-- Logo & Title -->
         <div class="text-center mb-8">
             <h1 class="font-outfit text-3xl font-extrabold text-white tracking-wide">
-                Lombok<span class="text-primary-500">Travel</span>
+                Mascal<span class="text-primary-500">Tour</span>
             </h1>
             <p class="text-slate-400 mt-2 text-sm font-medium">Panel Pengelola Konten & Rental</p>
         </div>
@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <p class="text-center text-xs text-slate-500 mt-8">
-            &copy; <?= date('Y') ?> Lombok Travel Agency. Hak Cipta Dilindungi.
+            &copy; <?= date('Y') ?> Mascal Tour. Hak Cipta Dilindungi.
         </p>
     </div>
 

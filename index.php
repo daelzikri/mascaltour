@@ -66,7 +66,7 @@ try {
 }
 
 // Fallback values for settings
-$site_name = getSetting('site_name', 'Lombok Travel Agency');
+$site_name = getSetting('site_name', 'Mascal Tour');
 $hero_headline = getSetting('hero_title', getSetting('hero_headline', 'Jelajahi Keindahan Lombok Tanpa Cemas'));
 $hero_subheadline = getSetting('hero_subtitle', getSetting('hero_subheadline', 'Layanan Paket Wisata, Antar Jemput Bandara & Sewa Mobil Premium Terpercaya di Lombok'));
 $hero_image = getSetting('hero_image');

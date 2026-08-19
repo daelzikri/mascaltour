@@ -148,7 +148,7 @@ $car_fallbacks = [
                         ? BASE_URL . $v['main_image']
                         : $car_fallbacks[crc32($v['slug']) % count($car_fallbacks)];
 
-                    $wa_msg = "Halo Lombok Travel! Saya tertarik sewa mobil *{$v['name']}*. Mohon informasi ketersediaan tanggal sewa.";
+                    $wa_msg = "Halo Mascal Tour! Saya tertarik sewa mobil *{$v['name']}*. Mohon informasi ketersediaan tanggal sewa.";
                     $wa_link = generateWaLink($wa_number, $wa_msg);
                 ?>
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col hover:-translate-y-1">
@@ -250,7 +250,7 @@ $car_fallbacks = [
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
         <h2 class="font-outfit text-3xl font-extrabold mb-3">Butuh Mobil Kelas Khusus atau Bus Pariwisata?</h2>
         <p class="text-brand-100 mb-7">Kami melayani armada Hiace 14 seat, Elf, hingga Bus Pariwisata 35+ seat untuk rombongan group.</p>
-        <a href="<?= generateWaLink($wa_number, 'Halo Lombok Travel! Saya berminat sewa armada rombongan (Hiace/Elf/Bus).') ?>" target="_blank"
+        <a href="<?= generateWaLink($wa_number, 'Halo Mascal Tour! Saya berminat sewa armada rombongan (Hiace/Elf/Bus).') ?>" target="_blank"
             class="inline-flex items-center gap-3 px-8 py-4 bg-white text-brand-800 font-extrabold rounded-2xl hover:bg-accent-50 transition shadow-xl text-sm">
             💬 Tanya Admin via WhatsApp
         </a>

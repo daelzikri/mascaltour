@@ -3,7 +3,7 @@
         <!-- System Footer -->
         <footer class="bg-slate-950 p-6 border-t border-slate-800 text-center text-xs text-slate-500">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <p>&copy; <?= date('Y') ?> Lombok Travel Agency. Hak Cipta Dilindungi.</p>
+                <p>&copy; <?= date('Y') ?> Mascal Tour. Hak Cipta Dilindungi.</p>
                 <p>Dikembangkan dengan PHP Native & Tailwind CSS</p>
             </div>
         </footer>

@@ -2,12 +2,12 @@
 /**
  * Public Website Footer Component
  */
-$site_name = getSetting('site_name', 'Lombok Travel Agency');
+$site_name = getSetting('site_name', 'Mascal Tour');
 $site_logo = getSetting('site_logo');
 $about_text = getSetting('about_text', 'Layanan agen perjalanan dan rental mobil terpercaya di Pulau Lombok. Menyediakan paket liburan terbaik dengan armada kendaraan prima demi kenyamanan petualangan Anda.');
 $phone = getSetting('contact_phone');
 $wa_number = getSetting('contact_whatsapp', getSetting('whatsapp_number', '6281234567890'));
-$email = getSetting('contact_email', getSetting('email', 'info@lomboktravel.com'));
+$email = getSetting('contact_email', getSetting('email', 'info@mascaltour.com'));
 $address = getSetting('address', getSetting('office_address', 'Jl. Raya Senggigi No. 12, Senggigi, Batu Layar, Lombok Barat, NTB'));
 $instagram = getSetting('social_instagram');
 $facebook = getSetting('social_facebook');
